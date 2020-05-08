@@ -29,7 +29,7 @@ class Duwi {
 		print_r($param);
 	}
 	public function listakses($levelakses){
-		$url=$this->_LOAD->uri->segment(1).'/'.$this->_LOAD->uri->segment(2);
+		$url=$this->_LOAD->uri->segment(1);
 		$aksesmenu=false;
 		$menu=array(
 			'tabel'=>'menu',
@@ -37,17 +37,22 @@ class Duwi {
 			// 'order'=>array('kolom'=>'menu_urutan','orderby'=>'ASC'),
 		);
 		$_aksesmenu=$this->_LOAD->Mdb->read($menu)->result();	
-		foreach ($_aksesmenu as $index => $var) {						
+		foreach ($_aksesmenu as $index => $var) {
 			$level=explode(',', $var->menu_akses_level);
 			foreach ($level as $_userakses) {			
 				if($levelakses==$_userakses){
 					$aksesmenu=true;
-					//return $aksesmenu;	
 				}
 			}
 		}
 		if(!$aksesmenu){
-			redirect(site_url('error'));
+			if($this->_LOAD->session->userdata('user_login')){
+				redirect(site_url('Template/notfound'));	
+			}else{
+				$this->_LOAD->session->set_flashdata('error','Akses ditolak');
+				redirect(site_url('Login'));
+			}			
+
 		}			
 		//return $aksesmenu;
 	}	
@@ -59,8 +64,6 @@ class Duwi {
 	public function ceklogin(){
 		if($this->_LOAD->session->userdata('user_login')==true){
 			redirect(site_url('dashboard/dashboard'));
-		}else{
-			redirect(site_url());
 		}
 	}
 	public function nomorurut($param){

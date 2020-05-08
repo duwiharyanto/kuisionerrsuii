@@ -9,8 +9,7 @@ class Kontak extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		// $this->load->library('Duwi');
-		// $this->duwi->listakses($this->session->userdata('user_level'));
+		$this->duwi->listakses($this->session->userdata('user_level'));
 		// $this->duwi->cekadmin();
 	}
 	public function setting(){

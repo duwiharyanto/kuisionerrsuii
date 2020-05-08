@@ -5,17 +5,22 @@
 	}
 	function backend($data){
 		$backend="_template/Backend";
-		$CI =& get_instance();  
-		$CI->load->view($backend,$data);
+		$TEMPLATE =& get_instance();  
+		$TEMPLATE->load->view($backend,$data);
 	}
 	function notfound($data=null){
 		$backend="_template/Notfound404";
-		$CI =& get_instance();  
-		$CI->load->view($backend,$data);
-	}	
+		$TEMPLATE =& get_instance();  
+		$TEMPLATE->load->view($backend,$data);
+	}
+	function login($data=null){
+		$backend="_template/Auth";
+		$TEMPLATE =& get_instance();  
+		$TEMPLATE->load->view($backend,$data);
+	}		
 	function export($config){
 		$backend="template/export";
-		$CI =& get_instance();  
-		return $CI->load->view($backend,$config,true);
+		$TEMPLATE =& get_instance();  
+		return $TEMPLATE->load->view($backend,$config,true);
 	}	
 ?>

@@ -9,7 +9,7 @@ class Dashboard extends MY_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		// $this->duwi->listakses($this->session->userdata('user_level'));
+		$this->duwi->listakses($this->session->userdata('user_level'));
 		// $this->duwi->cekadmin();
 		$this->leveluser=1;
 	}
