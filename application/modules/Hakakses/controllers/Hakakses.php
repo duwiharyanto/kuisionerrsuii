@@ -27,7 +27,7 @@ class Hakakses extends MY_Controller {
 				'tambah'=>false,
 				'edit'=>true,
 				'detail'=>false,
-				'hapus'=>true,
+				'hapus'=>false,
 				'cetak'=>false,
 				'url'=>'Hakakses',
 			],
@@ -52,6 +52,7 @@ class Hakakses extends MY_Controller {
 		// ];
 		$q=[
 			'tabel'=>$this->tabel,
+			'order'=>['kolom'=>'menu_label','orderby'=>'ASC'],
 		];
 		$data=[
 			'data'=>$this->Mdb->read($q)->result(),
@@ -68,7 +69,7 @@ class Hakakses extends MY_Controller {
 			];
 			$q=[
 				'tabel'=>$this->tabel,
-				'data'=>$data,
+				'data'=>$this->security->xss_clean($data),
 			];
 			$r=$this->Mdb->insert($q);
 			$dt=toastsimpan($r,'level');
@@ -92,6 +93,7 @@ class Hakakses extends MY_Controller {
 				'menu_link'=>ucwords($this->input->post('menu_link')),
 				'menu_status'=>$this->input->post('menu_status'),
 				'menu_akses_level'=>$this->input->post('menu_akses_level'),
+				'menu_ikon'=>$this->input->post('menu_ikon'),
 			];
 			$q=[
 				'tabel'=>$this->tabel,
@@ -100,9 +102,9 @@ class Hakakses extends MY_Controller {
 			];
 			$r=$this->Mdb->update($q);
 			if($r){
-				$data=toastupdate('success','Log');
+				$data=toastupdate('success','Akses');
 			}else{
-				$data=toastupdate('error','Log');
+				$data=toastupdate('error','Akses');
 			}
 			return $this->output->set_output(json_encode($data));
 		}
@@ -110,13 +112,28 @@ class Hakakses extends MY_Controller {
 			'tabel'=>$this->tabel,
 			'where'=>[[$this->id=>$id]],
 		];
+		$level=[
+			'tabel'=>'level',
+		];
 		$result=$this->Mdb->read($q)->row();
 		$data=[
 			'setting'=>$this->setting(),
 			'headline'=>'edit data',
 			'data'=>$result,
+			'level'=>$this->Mdb->read($level)->result(),
 		];
 		$this->load->view('edit',$data);
+	}
+	public function modalleveluser(){
+		$level=[
+			'tabel'=>'level',
+		];
+		$data=[
+			'setting'=>$this->setting(),
+			'headline'=>'edit data',
+			'level'=>$this->Mdb->read($level)->result(),
+		];
+		$this->load->view('modalleveluser',$data);
 	}
 	public function hapus(){
 		$id=$this->input->post('id');
@@ -126,9 +143,9 @@ class Hakakses extends MY_Controller {
 		];
 		$result=$this->Mdb->delete($q);
 		if($result){
-			$data=toasthapus('success','log');
+			$data=toasthapus('success','Akses');
 		}else{
-			$data=toasthapus('error','log');
+			$data=toasthapus('error','Akses');
 		}
 		$this->output->set_output(json_encode($data));
 	}

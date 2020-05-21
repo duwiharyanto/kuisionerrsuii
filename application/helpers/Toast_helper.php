@@ -73,4 +73,19 @@
 		}
 		return $data;
 	}
+	function toastbackupdb($status,$action=null){
+		if($status==1)$st=true;
+		if($status){
+			$data=[
+				'status'=>'success',
+				'msg'=>'Proses backup '.$action.' berhasil',
+			];
+		}else{
+			$data=[
+				'status'=>'error',
+				'msg'=>'Proses backup '.$action.' gagal dilakukan',
+			];
+		}
+		return $data;
+	}
 ?>

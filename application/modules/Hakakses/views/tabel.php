@@ -18,10 +18,10 @@
 					<?php foreach($data AS $row):?>
 						<tr>
 							<td><?=$i?></td>
-							<td><?=ucwords($row->menu_label)?></td>
+							<td><?=ucwords($row->menu_label)?><br/><small>Icon :<?= $row->menu_ikon?></small></td>
 							<td><?=ucwords($row->menu_link)?></td>
 							<td><?=ucwords($row->menu_akses_level)?></td>
-							<td><?=ucwords($row->menu_is_mainmenu==0 ? 'Parent':'Child')?></td>
+							<td><?=$row->menu_is_mainmenu==0 ? '<span class="badge badge-primary">Parent</span>':'<span class="badge badge-secondary">Child</span>'?></td>
 							<td><?= $row->menu_status ? 'Aktif':'Disable'?></td>
 							<td class="text-center">
 								<?php buttonaksi($setting['aksi'],$row->menu_id,$this->uri->segment(1))?>

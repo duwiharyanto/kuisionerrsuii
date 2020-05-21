@@ -9,7 +9,6 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="<?= base_url()?>assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?= base_url()?>assets/modules/fontawesome/css/all.min.css">
-
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="<?= base_url()?>assets/modules/datatables/datatables.min.css">
   <link rel="stylesheet" href="<?= base_url()?>assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
@@ -19,7 +18,6 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url()?>assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url()?>assets/css/components.css">
-
   <!-- General JS Scripts -->
   <script src="<?= base_url()?>/assets/modules/jquery.min.js"></script>
   <script src="<?= base_url()?>/assets/modules/popper.js"></script>
@@ -29,6 +27,7 @@
   <script src="<?= base_url()?>/assets/modules/moment.min.js"></script>
   <script src="<?= base_url()?>/assets/js/stisla.js"></script>
   <script src="<?= base_url()?>/assets/js/jquery.validate.js"></script>
+  <script src="<?= base_url()?>/assets/js/page/bootstrap-modal.js"></script>
   <?php if(strtolower($this->uri->segment(1))=='dashboard'):?>
     <script src="<?= base_url()?>assets/modules/chart.min.js"></script>
   <?php endif;?>
@@ -39,6 +38,11 @@
   <script src="<?=base_url()?>assets/modules/select2/dist/js/select2.full.min.js"></script>
   <script src="<?=base_url()?>assets/js/myjs.js"></script>
 </head>
+<style>
+  .navbar-bg{
+    background-color:#6372E6
+  }
+</style>
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
@@ -145,6 +149,7 @@
           </div>
         </section>
       </div>
+      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
       <footer class="main-footer">
         <div class="footer-left">
           <?= FOOTPRINT ?>
@@ -155,15 +160,8 @@
       </footer>
     </div>
   </div>
-
-
-  <!-- JS Libraies -->
-
-  <!-- Page Specific JS File -->
-
   <!-- Template JS File -->
   <script src="<?= base_url()?>/assets/js/scripts.js"></script>
   <script src="<?= base_url()?>/assets/js/custom.js"></script>
-
 </body>
 </html>

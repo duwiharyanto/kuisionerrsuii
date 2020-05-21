@@ -16,13 +16,13 @@ class Duwi {
     		'limit'=>1,
     	];
     	return $this->_LOAD->Mdb->read($query)->row();
-    }	
+    }
 	public function notifiaksi($param){
 		if($param==1){
 			$this->session->set_flashdata('success','proses berhasil');
 		}else{
 			$this->session->set_flashdata('error',$param);
-		}		
+		}
 	}
 	public function ujicobalib($param){
 		echo "<pre>";
@@ -36,10 +36,10 @@ class Duwi {
 			'where'=>array(array('menu_link'=>$url)),
 			// 'order'=>array('kolom'=>'menu_urutan','orderby'=>'ASC'),
 		);
-		$_aksesmenu=$this->_LOAD->Mdb->read($menu)->result();	
+		$_aksesmenu=$this->_LOAD->Mdb->read($menu)->result();
 		foreach ($_aksesmenu as $index => $var) {
 			$level=explode(',', $var->menu_akses_level);
-			foreach ($level as $_userakses) {			
+			foreach ($level as $_userakses) {
 				if($levelakses==$_userakses){
 					$aksesmenu=true;
 				}
@@ -47,15 +47,15 @@ class Duwi {
 		}
 		if(!$aksesmenu){
 			if($this->_LOAD->session->userdata('user_login')){
-				redirect(site_url('Template/notfound'));	
+				redirect(site_url('Template/notfound'));
 			}else{
 				$this->_LOAD->session->set_flashdata('error','Akses ditolak');
 				redirect(site_url('Login'));
-			}			
+			}
 
-		}			
+		}
 		//return $aksesmenu;
-	}	
+	}
 	public function cekadmin(){
 		if($this->_LOAD->session->userdata('user_level')!=1 && $this->_LOAD->session->userdata('user_login')!=true){
 			redirect(site_url());
@@ -80,7 +80,7 @@ class Duwi {
 		$tahun=date('Y');
 		$kodependaftaran='D'.$param['kodedokter'].substr($tahun, 2).$padnourut;
 		return $kodependaftaran;
-	}	
+	}
 	public function bulanromawi($param){
 		switch ($param) {
 			case '1':
@@ -88,7 +88,7 @@ class Duwi {
 				break;
 			case '2':
 				$bulan='II';
-				break;	
+				break;
 			case '3':
 				$bulan='III';
 				break;
@@ -97,7 +97,7 @@ class Duwi {
 				break;
 			case '5':
 				$bulan='V';
-				break;	
+				break;
 			case '6':
 				$bulan='VI';
 				break;
@@ -118,12 +118,12 @@ class Duwi {
 				break;
 			case '12':
 				$bulan='XII';
-				break;																													
+				break;
 			default:
 				$bulan='_';
 				break;
 		}
-		return $bulan;		
+		return $bulan;
 	}
 	public function nomorsurat($param){
 		//01.004/SMA-SM/V/2018
@@ -138,7 +138,7 @@ class Duwi {
 		$padnourut=str_pad($nourut,3,'0',STR_PAD_LEFT);
 		$nomorsurat=$param['kodeberkas'].'.'.$padnourut.$delimiter.$param['instansi'].$delimiter.$bulan.$delimiter.$param['tahun'];
 		return $nomorsurat;
-	}		
+	}
 	public function fileupload($path,$file){
 		$config=array(
 			'upload_path'=>$path,
@@ -158,7 +158,7 @@ class Duwi {
 		);
 		$this->_LOAD->load->library('upload',$config);
 		return $this->_LOAD->upload->do_upload($file);
-	}	
+	}
 	public function downloadfile($path,$file){
 		$link=$path.$file;
 		if(file_exists($link)){
@@ -166,7 +166,7 @@ class Duwi {
 			force_download($file,$url);
 		}else{
 			$this->_LOAD->session->set_flashdata('error','File tidak ditemukan');
-		}						
+		}
 	}
 	public function matauang($param){
 		$level1=str_replace('Rp ', '', $param);
@@ -177,7 +177,7 @@ class Duwi {
 		echo "<pre>";
 		print_r($data);
 	}
-	public function menu($levelakses){		
+	public function menu($levelakses){
 		$main_menu=array(
 			'tabel'=>'menu',
 			'where'=>array(array('menu_is_mainmenu'=>'0'),array('menu_status'=>'1'),array('menu_akses_level'=>$levelakses)),
@@ -200,10 +200,10 @@ class Duwi {
 				}else{
 					$menu_akhir[$index]->status=0;
 					$menu_akhir[$index]->submenu=0;
-				}				
+				}
 			}
 		}
-		return $menu_akhir;		
+		return $menu_akhir;
 	}
 	public function prosescetak($data){
 		if(isset($data['kertas'])){
@@ -212,9 +212,7 @@ class Duwi {
 			$kertas='A4';
 		}
 		$nama_dokumen=$data['judul']; //Beri nama file PDF hasil.
-		// require_once('./assets/mPDF/mpdf.php');
-		// require_once('./assets/mpdf7/src/Mpdf.php');
-		require_once('./plugins/mpdf7/vendor/autoload.php');
+    require_once './vendor/autoload.php';
 		$mpdf = new \Mpdf\Mpdf([
 		    'mode' => 'utf-8',
 		    'margin_right'=>'20',
@@ -225,11 +223,11 @@ class Duwi {
 		    'format' => $kertas,
 		    //'orientation' => 'P'
 		]);
-		//$mpdf->SetTitle('Cetak Laporan');		
+		//$mpdf->SetTitle('Cetak Laporan');
 		// $mpdf->WriteHTML('<h1>Hello world!</h1>');
 		// $mpdf->Output();
-		//$mpdf= new \Mpdf\Mpdf('c','A4-Pa','',0,20,20,20,20);	
-		
+		//$mpdf= new \Mpdf\Mpdf('c','A4-Pa','',0,20,20,20,20);
+
 		// $mpdf->SetHTMLHeader('
 		// <div style="text-align: left; font-weight: bold;">
 		//     <img src="./assets/img/logohead.png" width="60px" height="60px">'.$nama_dokumen.'
@@ -241,13 +239,13 @@ class Duwi {
 		        <td width="33%" align="center">{PAGENO}/{nbpg}</td>
 		        <td width="33%" style="text-align: right;">'.$nama_dokumen.'</td>
 		    </tr>
-		</table>');		
+		</table>');
 		$mpdf->WriteHTML($data['view']);
-		$mpdf->Output($nama_dokumen.".pdf",'I');		
+		$mpdf->Output($nama_dokumen.".pdf",'I');
 	}
 	public function qrcode($param){
 		$dir= "./barcode/";
-		include "./assets/phpqrcode/qrlib.php"; 
+		include "./assets/phpqrcode/qrlib.php";
 		$tempdir = $dir;
 		#parameter inputan
 		$isi_teks = $param;
@@ -257,10 +255,10 @@ class Duwi {
 		$padding = 0;
 		QRCode::png($isi_teks,$tempdir.$namafile,$quality,$ukuran,$padding);
 		$path="barcode/".$namafile;
-		return base_url($path);		
+		return base_url($path);
 	}
 	public function generateqrcode($param){
-		include "./plugins/phpqrcode/qrlib.php"; 
+		include "./plugins/phpqrcode/qrlib.php";
 		$tempdir = $param['path'];
 		#parameter inputan
 		$isi_teks = $param['isi'];
@@ -270,8 +268,8 @@ class Duwi {
 		$padding = 0;
 		QRCode::png($isi_teks,$tempdir.$namafile,$quality,$ukuran,$padding);
 		$path=$param['path'].$namafile;
-		return base_url($path);		
-	}	
+		return base_url($path);
+	}
 	public function log($aksi){
 		$data=[
 			'log_aksi'=>$aksi['aksi'],
@@ -291,11 +289,11 @@ class Duwi {
 			'where'=>array(array('menu_is_mainmenu'=>'0'),array('menu_status'=>'1'),array('menu_akses'=>'1')),
 			'order'=>array('kolom'=>'menu_urutan','orderby'=>'ASC'),
 		);
-		$_aksesmenu=$this->_LOAD->Mdb->read($akses_menu)->result();	
+		$_aksesmenu=$this->_LOAD->Mdb->read($akses_menu)->result();
 		$menu_akhir=array();
-		foreach ($_aksesmenu as $index => $var) {						
+		foreach ($_aksesmenu as $index => $var) {
 			$_akseslevel=explode(',', $var->menu_akses_level);
-			foreach ($_akseslevel as $_userakses) {			
+			foreach ($_akseslevel as $_userakses) {
 				if($levelakses==$_userakses){
 					$menu_akhir[$index]=$var;
 					$menu_akhir[$index]->status=0;
@@ -312,19 +310,19 @@ class Duwi {
 							foreach ($submenu as $indexsubmenu => $varsubmenu) {
 								$_aksessubmenulevel=explode(',', $varsubmenu->menu_akses_level);
 								foreach ($_aksessubmenulevel as $_useraksessubmenu) {
-									//echo $_useraksessubmenu.' = '.$levelakses.'<br>';	
+									//echo $_useraksessubmenu.' = '.$levelakses.'<br>';
 									if($_useraksessubmenu==$levelakses){
-										$menu_akhirsubmenu[$indexsubmenu]=$varsubmenu;	
+										$menu_akhirsubmenu[$indexsubmenu]=$varsubmenu;
 									}
-								}							
+								}
 							}
 							$menu_akhir[$index]->status=1;
 							$menu_akhir[$index]->submenu=$menu_akhirsubmenu;
-						}						
-					}		
+						}
+					}
 				}
 			}
 		}
-		return $menu_akhir;	
+		return $menu_akhir;
 	}
 }

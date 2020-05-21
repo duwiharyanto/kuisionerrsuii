@@ -24,6 +24,7 @@ class Log extends MY_Controller {
 			'headline'=>'data log sistem',
 			'url'=>'Log',  //CASE SENSITIVE
 			'aksi'=>[
+				'add'=>false,
 				'edit'=>true,
 				'detail'=>false,
 				'hapus'=>true,
@@ -120,5 +121,28 @@ class Log extends MY_Controller {
 			echo $faker->name.'<br>';
 			echo $faker->date.'<br>';
 		}
+	}
+	public function cetak(){
+		$query=array(
+			'select'=>'a.*, b.user_username',
+			'tabel'=>'log a',
+			'join'=>array(array('tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER')),
+			'order'=>array('kolom'=>'a.log_id','orderby'=>'DESC'),
+		);
+		$data=array(
+			'setting'=>$this->setting(),
+			'data'=>$this->Mdb->join($query)->result(),
+			'deskripsi'=>'dicetak dari sistem tanggal '.date('d-m-Y'),
+		);
+		$print=[
+			'konten'=>$this->load->view('cetak',$data,TRUE), //VIEW HTML
+		];
+		$view=exportpdf($print);
+		$cetak=[
+			'judul'=>ucwords($data['setting']['headline']).'/'.date('d-m-Y'),
+			'view'=>$view,
+			'kertas'=>'A4',
+		];
+		$this->duwi->prosescetak($cetak);
 	}
 }

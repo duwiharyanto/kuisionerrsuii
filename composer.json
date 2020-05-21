@@ -2,7 +2,11 @@
     "name": "duwi/ithelpdesk",
     "require": {
         "fzaninotto/faker": "^1.9",
-        "kairos/phpqrcode": "^1.0"
+        "kairos/phpqrcode": "^1.0",
+        "mpdf/mpdf": "^8.0",
+        "aferrandini/phpqrcode": "^1.0",
+        "endroid/qr-code": "^3.7",
+        "phpoffice/phpspreadsheet": "^1.12"
     },
     "license": "GPL",
     "authors": [
