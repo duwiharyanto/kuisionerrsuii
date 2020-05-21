@@ -5,8 +5,12 @@
         <div class="card-header">
           <h4 id="headline"><?=ucwords($headline)?></h4>
           <div class="card-header-action">
-            <button id="addbtn" class="btn  btn-outline-primary" onclick="add()" url="<?= base_url($url.'/add')?>"><i class="fas fa-plus"></i> Tambah</button>
-            <button id="exportbtn" class="btn  btn-outline-primary" onclick="cetak()" url="<?= base_url($url.'/exportpdf')?>"><i class="fas fa-print"></i> PDF</button>
+            <?php if($aksi['tambah']):?>
+              <button id="addbtn" class="btn  btn-outline-primary" onclick="add()" url="<?= base_url($url.'/add')?>"><i class="fas fa-plus"></i> Tambah</button>
+            <?php endif;?>
+            <?php if($aksi['cetak']):?>
+              <button id="exportbtn" class="btn  btn-outline-primary" onclick="cetak()" url="<?= base_url($url.'/exportpdf')?>"><i class="fas fa-print"></i> PDF</button>
+            <?php endif;?>
             <div class="dropdown">
               <a href="#" data-toggle="dropdown" class="btn btn-outline-primary dropdown-toggle">Options</a>
               <div class="dropdown-menu">
@@ -17,7 +21,7 @@
           </div>
         </div>
         <div class="card-body">
-          <div id="loadtabel" url="<?=base_url($url.'/tabel')?>">
+          <div id="loadsetting" url="<?=base_url($url.'/tabel')?>">
             <p class="text-center">Mengambil data... <span class="fas fa-fire"></span> </p>
           </div>
         </div>
@@ -26,13 +30,12 @@
   </div>
 </div>
 <script>
-$(document).ready(function(){
-  var url=$('#loadtabel').attr('url');
+  var url=$('#loadsetting').attr('url');
   setTimeout(function () {
-    $("#loadtabel").load(url,function(){
-      aksi()
+    $("#loadsetting").load(url,function(){
+      aksisetting()
       custom()
+      validasisetting()
     });
   }, 200);
-})
 </script>

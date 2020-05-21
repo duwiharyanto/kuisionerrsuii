@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Log extends MY_Controller {
+class Sistem extends MY_Controller {
 
 	/**
 	 * Email haryanto.duwi@gmail.com
@@ -10,23 +9,26 @@ class Log extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->duwi->listakses($this->session->userdata('user_level'));
-
 		$this->user_level=$this->session->userdata('user_level');
 		// $this->duwi->cekadmin();
 	}
-	private $tabel='log';
-	private $id='log_id';
+	private $tabel='setting';
+	private $id='setting_id';
+	private $path='upload/sistem/';
+
 	public function setting(){
 		$setting=[
 			'sistem'=>'Starnode',
-			'menu'=>'log',
-			'submenu'=>false,
-			'headline'=>'data log sistem',
-			'url'=>'Log',  //CASE SENSITIVE
+			'menu'=>'setting',
+			'submenu'=>'sistem',
+			'headline'=>'setting sistem',
+			'url'=>'Sistem',  //CASE SENSITIVE
 			'aksi'=>[
+				'tambah'=>false,
 				'edit'=>true,
 				'detail'=>false,
 				'hapus'=>true,
+				'cetak'=>false,
 				'url'=>'Log',
 			],
 		];
@@ -42,18 +44,56 @@ class Log extends MY_Controller {
 		backend($data);
 	}
 	public function tabel(){
-		$q=[
-			'tabel'=>'log a',
-			'select'=>'a.*,b.user_nama',
-			'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
-			'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
-		];
-		$data=[
-			'data'=>$this->Mdb->join($q)->result(),
-			'setting'=>$this->setting(),
-		];
-		$this->load->view('tabel',$data);
-
+		if($this->input->post('setting_namasistem')){
+			$id=$this->input->post('id');
+			$data=[
+				'setting_namasistem'=>$this->input->post('setting_namasistem'),
+				'setting_namapemilik'=>$this->input->post('setting_namapemilik'),
+				'setting_namatempat'=>$this->input->post('setting_namatempat'),
+				'setting_alamat'=>$this->input->post('setting_alamat'),
+				'setting_email'=>$this->input->post('setting_email'),
+				'setting_notlp'=>$this->input->post('setting_notlp'),
+			];
+			//UPLOAD FILE
+			$file='setting_logo';
+			if($_FILES[$file]['name']){
+				if($this->duwi->gambarupload($this->path,$file)){
+					$fileupload=$this->upload->data('file_name');
+					$data[$file]=$fileupload;
+				}else{
+					$msg=$this->upload->display_errors();
+					$dt=toastupload('error',$msg);
+					return $this->output->set_output(json_encode($dt));
+				}
+			}
+			$q=[
+				'tabel'=>$this->tabel,
+				'data'=>$this->security->xss_clean($data),
+				'where'=>[$this->id=>$id],
+			];
+			$r=$this->Mdb->update($q);
+			if($q){
+				$dt=toastupdate('success','sistem');
+			}else{
+				$dt=toastupdate('error','sistem');
+			}
+			$this->output->set_output(json_encode($dt));
+		}else{
+			// $q=[
+			// 	'tabel'=>'log a',
+			// 	'select'=>'a.*,b.user_nama',
+			// 	'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+			// 	'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			// ];
+			$q=[
+				'tabel'=>'setting'
+			];
+			$data=[
+				'data'=>$this->Mdb->read($q)->row(),
+				'setting'=>$this->setting(),
+			];
+			$this->load->view('tabel',$data);
+		}
 	}
 	public function add(){
 		if($this->input->post('log_iduser')){

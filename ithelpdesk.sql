@@ -11,7 +11,7 @@
  Target Server Version : 100131
  File Encoding         : 65001
 
- Date: 03/05/2020 13:16:53
+ Date: 08/05/2020 13:02:25
 */
 
 SET NAMES utf8mb4;
@@ -49,25 +49,14 @@ CREATE TABLE `log`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   `log_level` varchar(3) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`log_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 254 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 265 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of log
 -- ----------------------------
 INSERT INTO `log` VALUES (3, 34, 'login', '2020-01-02 03:40:04', '1');
-INSERT INTO `log` VALUES (12, 35, 'password salah', '2020-01-02 03:40:08', '3');
-INSERT INTO `log` VALUES (13, 1, 'login', '2020-01-02 05:34:00', '1');
-INSERT INTO `log` VALUES (15, 1, 'login', '2020-01-02 05:33:59', '1');
-INSERT INTO `log` VALUES (16, 1, 'logout', '2020-01-02 05:34:09', '3');
-INSERT INTO `log` VALUES (17, 1, 'login', '2020-01-02 05:34:13', '1');
-INSERT INTO `log` VALUES (18, 1, 'logout', '2020-01-02 06:07:28', '3');
-INSERT INTO `log` VALUES (19, 35, 'login', '2020-01-02 06:07:33', '1');
-INSERT INTO `log` VALUES (20, 35, 'logout', '2020-01-02 06:07:39', '3');
 INSERT INTO `log` VALUES (21, 4, 'login', '2020-01-02 06:07:42', '1');
 INSERT INTO `log` VALUES (22, 4, 'logout', '2020-01-02 06:07:55', '3');
-INSERT INTO `log` VALUES (23, 29, 'password salah', '2020-01-02 06:07:58', '3');
-INSERT INTO `log` VALUES (24, 29, 'password salah', '2020-01-02 06:08:02', '3');
-INSERT INTO `log` VALUES (25, 1, 'login', '2020-01-02 06:08:06', '1');
 INSERT INTO `log` VALUES (26, 1, 'logout', '2020-01-02 06:08:25', '3');
 INSERT INTO `log` VALUES (27, 29, 'login', '2020-01-02 06:08:28', '1');
 INSERT INTO `log` VALUES (28, 1, 'password salah', '2020-01-02 06:12:54', '3');
@@ -258,7 +247,6 @@ INSERT INTO `log` VALUES (214, 1, 'login', '2020-03-23 20:56:14', '1');
 INSERT INTO `log` VALUES (215, 1, 'logout', '2020-03-23 22:23:32', '3');
 INSERT INTO `log` VALUES (216, 1, 'login', '2020-03-25 17:11:19', '1');
 INSERT INTO `log` VALUES (217, 1, 'logout', '2020-03-25 17:48:36', '3');
-INSERT INTO `log` VALUES (218, 1, 'login', '2020-03-25 17:48:44', '1');
 INSERT INTO `log` VALUES (222, 1, 'login', '2020-03-25 21:05:39', '1');
 INSERT INTO `log` VALUES (230, NULL, 'logout', '2020-03-27 20:02:26', '3');
 INSERT INTO `log` VALUES (233, 37, 'login', '2020-03-27 21:52:00', '1');
@@ -271,6 +259,17 @@ INSERT INTO `log` VALUES (246, 1, 'login', '2020-05-02 11:11:39', '1');
 INSERT INTO `log` VALUES (247, 1, 'logout', '2020-05-02 12:02:13', '3');
 INSERT INTO `log` VALUES (251, 1, 'login', '2020-05-03 11:37:57', '1');
 INSERT INTO `log` VALUES (252, 1, 'logout', '2020-05-03 11:38:11', '3');
+INSERT INTO `log` VALUES (254, 1, 'login', '2020-05-08 11:37:05', '1');
+INSERT INTO `log` VALUES (255, 1, 'logout', '2020-05-08 12:27:50', '3');
+INSERT INTO `log` VALUES (256, 1, 'login', '2020-05-08 12:27:54', '1');
+INSERT INTO `log` VALUES (257, 1, 'logout', '2020-05-08 12:44:34', '3');
+INSERT INTO `log` VALUES (258, 1, 'login', '2020-05-08 12:49:02', '1');
+INSERT INTO `log` VALUES (259, 1, 'logout', '2020-05-08 12:50:38', '3');
+INSERT INTO `log` VALUES (260, 1, 'login', '2020-05-08 12:54:00', '1');
+INSERT INTO `log` VALUES (261, 1, 'logout', '2020-05-08 12:54:10', '3');
+INSERT INTO `log` VALUES (262, 1, 'login', '2020-05-08 12:54:28', '1');
+INSERT INTO `log` VALUES (263, 1, 'logout', '2020-05-08 12:59:51', '3');
+INSERT INTO `log` VALUES (264, 1, 'login', '2020-05-08 13:01:07', '1');
 
 -- ----------------------------
 -- Table structure for menu
@@ -294,7 +293,7 @@ CREATE TABLE `menu`  (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, 'kontak', 'fas fa-fire', '0', 'Kontak', '1', 2, '1', 1, NULL, 'kontak');
+INSERT INTO `menu` VALUES (1, 'kontak', 'fas fa-fire', '0', 'Kontak', '2', 2, '1', 1, NULL, 'kontak');
 INSERT INTO `menu` VALUES (168, 'setting', 'fas fa-fire', '0', 'Setting', '1', 3, '1', 1, NULL, 'setting');
 INSERT INTO `menu` VALUES (169, 'dashboard', 'fas fa-fire', '0', 'Dashboard', '1', 1, '1', 1, NULL, 'dashboard');
 INSERT INTO `menu` VALUES (170, 'hak_akses', 'fas fa-fire', '168', 'Hakakses', '1', 1, '1', 1, NULL, 'hak akses');

@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Log extends MY_Controller {
+class Hakakses extends MY_Controller {
 
 	/**
 	 * Email haryanto.duwi@gmail.com
@@ -10,24 +9,27 @@ class Log extends MY_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->duwi->listakses($this->session->userdata('user_level'));
-
 		$this->user_level=$this->session->userdata('user_level');
 		// $this->duwi->cekadmin();
 	}
-	private $tabel='log';
-	private $id='log_id';
+	private $tabel='menu';
+	private $id='menu_id';
+	//private $path='upload/sistem/';
+
 	public function setting(){
 		$setting=[
-			'sistem'=>'Starnode',
-			'menu'=>'log',
-			'submenu'=>false,
-			'headline'=>'data log sistem',
-			'url'=>'Log',  //CASE SENSITIVE
+			'sistem'=>'Starnodes',
+			'menu'=>'setting',
+			'submenu'=>'hak_akses',
+			'headline'=>'Hak akses user',
+			'url'=>'Hakakses',  //CASE SENSITIVE
 			'aksi'=>[
+				'tambah'=>false,
 				'edit'=>true,
 				'detail'=>false,
 				'hapus'=>true,
-				'url'=>'Log',
+				'cetak'=>false,
+				'url'=>'Hakakses',
 			],
 		];
 		return $setting;
@@ -37,33 +39,46 @@ class Log extends MY_Controller {
 		$data=[
 			'konten'=>$this->load->view('Index',$this->setting(),TRUE),
 			'setting'=>$this->setting(),
-			'menu'=>$this->duwi->menu_backend($this->user_level),
+			'menu'=>$this->duwi->menu_backend($this->user_level), //LOAD BACKEND MENU
 		];
-		backend($data);
+		backend($data); //LOAD HELPER BACKEND
 	}
 	public function tabel(){
+		// $q=[
+		// 	'tabel'=>'log a',
+		// 	'select'=>'a.*,b.user_nama',
+		// 	'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+		// 	'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+		// ];
 		$q=[
-			'tabel'=>'log a',
-			'select'=>'a.*,b.user_nama',
-			'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
-			'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			'tabel'=>$this->tabel,
 		];
 		$data=[
-			'data'=>$this->Mdb->join($q)->result(),
+			'data'=>$this->Mdb->read($q)->result(),
 			'setting'=>$this->setting(),
 		];
 		$this->load->view('tabel',$data);
-
 	}
 	public function add(){
-		if($this->input->post('log_iduser')){
+		if($this->input->post('level_nama')){
 			$data=[
-				'log_iduser'=>$this->input->post('log_iduser'),
-				'log_aksi'=>$this->input->post('log_aksi')
+				'level_nama'=>$this->input->post('level_nama'),
+				'level_dashboard'=>ucwords($this->input->post('level_dashboard')),
+				'level_status'=>$this->input->post('level_status')
 			];
-			return $this->output->set_output(json_encode($data));
+			$q=[
+				'tabel'=>$this->tabel,
+				'data'=>$data,
+			];
+			$r=$this->Mdb->insert($q);
+			$dt=toastsimpan($r,'level');
+			return $this->output->set_output(json_encode($dt));
 		}
+		$q=[
+			'tabel'=>$this->tabel,
+		];
 		$data=[
+			'dump'=>$this->Mdb->read($q)->result(),
 			'setting'=>$this->setting(),
 			'headline'=>'tambah data',
 		];
@@ -71,9 +86,12 @@ class Log extends MY_Controller {
 	}
 	public function edit(){
 		$id=$this->input->post('id');
-		if($this->input->post('log_aksi')){
+		if($this->input->post('menu_label')){
 			$data=[
-				'log_aksi'=>$this->input->post('log_aksi'),
+				'menu_label'=>$this->input->post('menu_label'),
+				'menu_link'=>ucwords($this->input->post('menu_link')),
+				'menu_status'=>$this->input->post('menu_status'),
+				'menu_akses_level'=>$this->input->post('menu_akses_level'),
 			];
 			$q=[
 				'tabel'=>$this->tabel,
