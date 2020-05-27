@@ -85,7 +85,6 @@ aksi = function(){
         $("#loadtabel").html(data)
         custom()
         validasi()
-
       }
     })
   });
@@ -117,7 +116,6 @@ validasisetting = function(){
             //console.log(data);
             reloadsetting()
             toaster(data)
-
           },
           error:function(){
           }
@@ -129,9 +127,9 @@ validasisetting = function(){
 reloadsetting = function(){
   var url=$('#loadsetting').attr('url');
   $("#loadsetting").load(url,function(){
-    aksi()
+    aksisetting()
     custom()
-    validasi()
+    validasisetting()
   });
 }
 aksisetting = function(){

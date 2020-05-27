@@ -19,7 +19,7 @@ class Login extends MY_Controller {
 		                'rules' => 'required',
 		                'errors' => array(
 		                        'required' => '%s harus diisi.',
-		                ),		                
+		                ),
 		        ),
 		        array(
 		                'field' => 'password',
@@ -30,7 +30,7 @@ class Login extends MY_Controller {
 		                ),
 		        ),
 		);
-		$this->form_validation->set_rules($config);		
+		$this->form_validation->set_rules($config);
 	}
 	public function setting(){
 		$setting=[
@@ -51,9 +51,9 @@ class Login extends MY_Controller {
 	public function prosesauth(){
 		$data=[
 			'setting'=>$this->setting(),
-		];		
+		];
 		$this->validation();
-		if ($this->form_validation->run()){	
+		if ($this->form_validation->run()){
 			$username=$this->input->post('username');
 			$password=$this->input->post('password');
 			$q_cekuser=[
@@ -68,7 +68,7 @@ class Login extends MY_Controller {
 					'where'=>[['user_username'=>$username],['user_password'=>md5($password)]],
 					'limit'=>1,
 				];
-				$r_cekuserpass=$this->Mdb->read($q_cekuserpass);	
+				$r_cekuserpass=$this->Mdb->read($q_cekuserpass);
 				//CEK USER DAN PASS DI DATABASE
 				if(count($r_cekuserpass->result())!=0){
 					$dt_session=$r_cekuserpass->row();
@@ -77,32 +77,32 @@ class Login extends MY_Controller {
 						'user_nama'=>$dt_session->user_nama,
 						'user_level'=>$dt_session->user_level,
 						'user_id'=>$dt_session->user_id,
-						'user_foto'=>$dt_session->user_foto,
+						'user_foto'=>$dt_session->user_foto ? $dt_session->user_foto:'default.png' ,
 						'user_login'=>true,
 					];
 					if($dt_session->user_status!=1){
 						$this->session->set_flashdata('error','User Anda Non Aktif, kontak Adminstrator');
-						login($data);						
+						login($data);
 					}else{
 						$logdata=[
 							'aksi'=>'login',
 							'iduser'=>$dt_session->user_id,
 							'loglevel'=>1,
-						];	
+						];
 						if(!$this->duwi->log($logdata)){
 							$this->session->set_flashdata('error','log tidak tercatat');
-							redirect(site_url('Login'));					
-						}	
+							redirect(site_url('Login'));
+						}
 						//CEK KETERSEDIAAN HALAMAN DASHBOARD USER
 						if($dt_session->user_dashboard){
 							$this->session->set_userdata($set_session);
-							$this->session->set_flashdata('success','Selamat datang '.ucwords($dt_session->user_nama));							
-							redirect(site_url($dt_session->user_dashboard));	
+							$this->session->set_flashdata('success','Selamat datang '.ucwords($dt_session->user_nama));
+							redirect(site_url($dt_session->user_dashboard));
 						}else{
 							$this->session->set_flashdata('error','User anda belum di set halaman dashboard, kontak administrator');
 							login($data);
 						}
-						
+
 					}
 				}else{
 					$this->session->set_flashdata('error','Password & Username Salah');
@@ -125,9 +125,9 @@ class Login extends MY_Controller {
 		];
 		if(!$this->duwi->log($logdata)){
 			$this->session->set_flashdata('error','log tidak tercatat');
-			redirect(base_url('Login'));					
-		}			
+			redirect(base_url('Login'));
+		}
 		$this->session->sess_destroy();
 		redirect(site_url('Login'));
-	}	
+	}
 }
