@@ -6,7 +6,9 @@
 
 // Auth with login/password (set true/false to enable/disable it)
 $use_auth = false;
-$mypath='/ithelpdesk/backupdb/';
+$url=$_SERVER['PHP_SELF'];
+$url=explode('/',$url);
+$mypath='/'.$url[1].'/backupdb/';
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...)
 $auth_users = array(
     'fm_admin' => 'fm_admin',

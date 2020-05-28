@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="<?=base_url()?>assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
   <link rel="stylesheet" href="<?=base_url()?>assets/modules/select2/dist/css/select2.min.css">
   <link rel="stylesheet" href="<?=base_url()?>assets/modules/izitoast/css/iziToast.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>assets/modules/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="<?=base_url()?>assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url()?>assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url()?>assets/css/components.css">
@@ -36,6 +39,9 @@
   <script src="<?=base_url()?>assets/modules/sweetalert/sweetalert.min.js"></script>
   <script src="<?=base_url()?>assets/modules/izitoast/js/iziToast.min.js"></script>
   <script src="<?=base_url()?>assets/modules/select2/dist/js/select2.full.min.js"></script>
+  <script src="<?=base_url()?>assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+  <script src="<?=base_url()?>assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+  <script src="<?=base_url()?>assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script src="<?=base_url()?>assets/js/myjs.js"></script>
 </head>
 <style>
@@ -60,7 +66,7 @@
 
           </div>
         </form>
-        
+
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="profil" src="<?= base_url('upload/sistem/foto/'.$this->session->userdata('user_foto'))?>" class="rounded-circle mr-1">

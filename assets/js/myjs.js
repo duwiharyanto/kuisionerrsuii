@@ -207,4 +207,8 @@ custom = function(){
     //buttons: ["copy", "print"]
   })
   $(".select2").select2();
+  $('.datepicker').daterangepicker({
+    locale: {format: 'DD-MM-YYYY'},
+    singleDatePicker: true,
+  });
 }
