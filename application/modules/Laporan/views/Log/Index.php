@@ -34,6 +34,11 @@
                                 <button onclick="cari(this)" url="<?=base_url($url.'/tabel')?>" type="button" id="btncari" class="btn btn-primary btn-block">Cari</button>
                             </div>
                         </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                              <p class="text-muted">Isikan range tanggal yang dikehendaki</p>
+                          </div>
+                        </div>
                     </form>
                     <div id="loadtabel" url="<?=base_url($url.'/tabel')?>">
                         <p class="text-center">Mengambil data... <span class="fas fa-spinner fa-spin"></span> </p>
@@ -54,7 +59,10 @@ $(document).ready(function(){
     }, 200);
 })
 function cetak(btn){
-    var url=$(btn).attr('url');
+    var url=$(btn).attr('url')
+    var tgl1=$('[name=tglmulai]').val()
+    var tgl2=$('[name=tglselesai]').val()
+    var url=url+'/'+tgl1+'/'+tgl2
     var view='<iframe src="'+url+'" width="100%" height="700" style="border:0px solid black;">'
     $("#loadtabel").html(view)
 }

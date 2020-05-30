@@ -34,8 +34,8 @@
                   <div class="alert-title">Perhatian !!</div>
                   <?= ucwords($msg); ?>
                 </div>
-              </div> 
-            <?php endif;?>           
+              </div>
+            <?php endif;?>
             <div class="card card-primary">
               <div class="card-header"><h4>Login</h4></div>
 
@@ -99,7 +99,7 @@
   <script src="<?=base_url()?>assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
   <script src="<?=base_url()?>assets/modules/moment.min.js"></script>
   <script src="<?=base_url()?>assets/js/stisla.js"></script>
-  
+
   <!-- JS Libraies -->
 
   <!-- Page Specific JS File -->

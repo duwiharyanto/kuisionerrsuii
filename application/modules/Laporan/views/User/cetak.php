@@ -12,7 +12,7 @@
     <?php foreach($data AS $row):?>
       <tr>
         <td align='center'><?=$i?></td>
-        <td><?=ucwords($row->user_username)?></td>
+        <td><?=ucwords($row->user_nama)?></td>
         <td class="<?=$row->log_level==3 ? 'text-danger':'text-success'?>"><?= $row->log_aksi?></td>
         <td align='center'><?=date('d-m-Y h:i:s',strtotime($row->created_at))?></td>
       </tr>

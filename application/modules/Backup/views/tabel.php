@@ -1,12 +1,10 @@
 <div class="row">
 	<div class="col-sm-12">
 		<div class="form-group">
-			<p class="text-muted">Hasil backup akan disimpan di folder <strong>backupdb</strong> di root folder</p>
+			<p class="text-muted">Hasil backup dapat dilihat pada menu file manager</p>
 			<a href="javascript:void(0)" onclick="backupdb(this)" url="<?=base_url($setting['url'].'/backupdb')?>" class="btn btn-icon icon-left btn-warning"><i class="fas fa-exclamation-triangle"></i> Backup</a>
+			<a href="<?=site_url('Filemanager')?>" class="btn btn-icon icon-left btn-success"><i class="fas fa-folder-open"></i> File Manager</a>
 			<div id="reloadtabel" url="<?= base_url($setting['url'].'/tabel')?>"></div>
-		</div>
-		<div class="form-group" >
-			<iframe src="<?=base_url($setting['url'].'/filemanager')?>" width="100%" height="300" style="border:0px solid black;">
 		</div>
 	</div>
 

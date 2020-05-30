@@ -63,7 +63,7 @@ class Backup extends MY_Controller {
 	 );
 	 $backup = $this->dbutil->backup($prefs);
 	 $db_name = 'backup-on-' . date("Y-m-d-H-i-s") . '.zip'; // file name
-	 $save  = 'backupdb/' . $db_name; // dir name backup output destination
+	 $save  = 'filemanager/userfiles/' . $db_name; // dir name backup output destination
 
 	 $this->load->helper('file');
 	 $r=write_file($save, $backup);

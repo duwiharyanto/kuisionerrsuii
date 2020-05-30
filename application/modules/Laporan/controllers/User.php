@@ -16,12 +16,12 @@ class User extends MY_Controller {
 	}
 	private $tabel='log';
 	private $id='log_id';
-	public function setting(){
+	public function setting($param=null){
 		$setting=[
 			'sistem'=>'Starnode',
 			'menu'=>'laporan',
 			'submenu'=>'lap_user',
-			'headline'=>'data log sistem',
+			'headline'=>'laporan user log',
 			'url'=>'Laporan/User',  //CASE SENSITIVE
 			'aksi'=>[
 				'add'=>false,
@@ -31,24 +31,43 @@ class User extends MY_Controller {
 				'url'=>'Laporan/User',
 			],
 		];
+		if(isset($param['user'])){
+			$q_user=[
+				'tabel'=>'user',
+			];
+			$setting['user']=$this->Mdb->read($q_user)->result();
+		}
 		return $setting;
 	}
 	public function index()
 	{
+		$param=[
+			'user'=>true,
+		];
 		$data=[
-			'konten'=>$this->load->view('User/Index',$this->setting(),TRUE),
+			'konten'=>$this->load->view('User/Index',$this->setting($param),TRUE),
 			'setting'=>$this->setting(),
 			'menu'=>$this->duwi->menu_backend($this->user_level),
 		];
 		backend($data);
 	}
-	public function tabel(){
-		$q=[
-			'tabel'=>'log a',
-			'select'=>'a.*,b.user_nama',
-			'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
-			'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
-		];
+	public function tabel($user=null){
+		if($user){
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'where'=>[['b.user_id'=>$user]],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}else{
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}
 		$data=[
 			'data'=>$this->Mdb->join($q)->result(),
 			'setting'=>$this->setting(),
@@ -122,20 +141,30 @@ class User extends MY_Controller {
 			echo $faker->date.'<br>';
 		}
 	}
-	public function cetak(){
-		$query=array(
-			'select'=>'a.*, b.user_username',
-			'tabel'=>'log a',
-			'join'=>array(array('tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER')),
-			'order'=>array('kolom'=>'a.log_id','orderby'=>'DESC'),
-		);
+	public function cetak($user=null){
+		if($user){
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'where'=>[['b.user_id'=>$user]],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}else{
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}
 		$data=array(
 			'setting'=>$this->setting(),
-			'data'=>$this->Mdb->join($query)->result(),
+			'data'=>$this->Mdb->join($q)->result(),
 			'deskripsi'=>'dicetak dari sistem tanggal '.date('d-m-Y'),
 		);
 		$print=[
-			'konten'=>$this->load->view('cetak',$data,TRUE), //VIEW HTML
+			'konten'=>$this->load->view('User/cetak',$data,TRUE), //VIEW HTML
 		];
 		$view=exportpdf($print);
 		$cetak=[

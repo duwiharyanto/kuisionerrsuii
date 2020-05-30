@@ -9,7 +9,7 @@
 						<th class="text-white">Log</th>
 						<th class="text-white">Tanggal</th>
 						<th class="text-center text-white">Aksi</th>
-					</tr>					
+					</tr>
 				</thead>
 				<tbody>
 					<?php $i=1;?>
@@ -23,10 +23,10 @@
 								<?php buttonaksi($setting['aksi'],$row->log_id,$this->uri->segment(1))?>
 							</td>
 						</tr>
-					<?php $i++;?>	
+					<?php $i++;?>
 					<?php endforeach;?>
 				</tbody>
 			</table>
-		</div>		
+		</div>
 	</div>
 </div>

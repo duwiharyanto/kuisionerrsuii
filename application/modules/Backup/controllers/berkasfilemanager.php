@@ -3,12 +3,11 @@
  * PHP File Manager (2017-08-07)
  * https://github.com/alexantr/filemanager
  */
-
+ $url=$_SERVER['PHP_SELF'];
+ $url=explode('/',$url);
+ $mypath='/'.$url[1].'/backupdb/';
 // Auth with login/password (set true/false to enable/disable it)
 $use_auth = false;
-$url=$_SERVER['PHP_SELF'];
-$url=explode('/',$url);
-$mypath='/'.$url[1].'/backupdb/';
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...)
 $auth_users = array(
     'fm_admin' => 'fm_admin',

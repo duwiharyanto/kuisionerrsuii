@@ -134,20 +134,32 @@ class Log extends MY_Controller {
 			echo $faker->date.'<br>';
 		}
 	}
-	public function cetak(){
-		$query=array(
-			'select'=>'a.*, b.user_username',
-			'tabel'=>'log a',
-			'join'=>array(array('tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER')),
-			'order'=>array('kolom'=>'a.log_id','orderby'=>'DESC'),
-		);
+	public function cetak($tgl1=null,$tgl2=null){
+		if($tgl1 AND $tgl2){
+			$tgl1=date('Y-m-d',strtotime($tgl1));
+			$tgl2=date('Y-m-d',strtotime($tgl2));
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'between'=>[['a.created_at >= '=>$tgl1],['a.created_at <= '=>$tgl2]],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}else{
+			$q=[
+				'tabel'=>'log a',
+				'select'=>'a.*,b.user_nama',
+				'join'=>[['tabel'=>'user b','ON'=>'a.log_iduser=b.user_id','jenis'=>'INNER']],
+				'order'=>['kolom'=>'created_at','orderby'=>'DESC'],
+			];
+		}
 		$data=array(
 			'setting'=>$this->setting(),
-			'data'=>$this->Mdb->join($query)->result(),
+			'data'=>$this->Mdb->join($q)->result(),
 			'deskripsi'=>'dicetak dari sistem tanggal '.date('d-m-Y'),
 		);
 		$print=[
-			'konten'=>$this->load->view('cetak',$data,TRUE), //VIEW HTML
+			'konten'=>$this->load->view('Log/cetak',$data,TRUE), //VIEW HTML
 		];
 		$view=exportpdf($print);
 		$cetak=[

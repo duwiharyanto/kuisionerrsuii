@@ -19,10 +19,37 @@
           </div>
         </div>
         <div class="card-body">
+          <form>
+              <div class="form-row">
+                  <div class="form-group col-md-3">
+                      <label for="inputEmail4">User</label>
+                      <select class="form-control select2" name="user">
+                          <option value="">
+                            Semua
+                          </option>
+                          <?php foreach($user AS $row):?>
+                            <option value="<?=$row->user_id?>">
+                              <?=ucwords($row->user_nama)?>
+                            </option>
+                          <?php endforeach;?>
+                      </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                      <label for="inputPassword4">&nbsp</label>
+                      <button onclick="cari(this)" url="<?=base_url($url.'/tabel')?>" type="button" id="btncari" class="btn btn-primary btn-block">Cari</button>
+                  </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <p class="text-muted">Isikan user yang dicari</p>
+                </div>
+              </div>
+          </form>
           <p style="display:none" class="text-center" id="generatepdf">Mengambil data... <span class="fas fa-spinner fa-spin"></span> </p>
           <div id="loadtabel" url="<?=base_url($url.'/tabel')?>">
             <p class="text-center">Mengambil data... <span class="fas fa-spinner fa-spin"></span> </p>
           </div>
+          <div id="smallfooter"></div>
         </div>
       </div>
     </div>
@@ -39,8 +66,21 @@ $(document).ready(function(){
   }, 200);
 })
 function cetak(btn){
-  var url=$(btn).attr('url');
+  var url=$(btn).attr('url')
+  var user=$('[name=user]').val()
+  var url=url+'/'+user
   var view='<iframe src="'+url+'" width="100%" height="700" style="border:0px solid black;">'
   $("#loadtabel").html(view)
+  $("#smallfooter").html('<small>*Preview cetak PDF</small>')
+}
+function cari(btn){
+    var url=$(btn).attr('url')
+    var user=$('[name=user]').val()
+    var url=url+'/'+user
+    //alert(url)
+    $("#loadtabel").load(url,function(){
+        aksi()
+        custom()
+    });
 }
 </script>
