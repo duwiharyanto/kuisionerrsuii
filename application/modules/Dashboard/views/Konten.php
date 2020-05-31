@@ -18,7 +18,6 @@
         </div>
       </div>
       <div class="col-sm-6">
-
         <div class="card card-statistic-1">
           <div class="card-icon bg-warning">
             <i class="far fa-file"></i>
@@ -44,6 +43,42 @@
             <canvas id="myChart2"></canvas>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card card-statistic-1">
+          <div class="card-icon bg-warning">
+            <i class="fas fa-server"></i>
+          </div>
+          <div class="card-wrap">
+            <div class="card-header">
+              <h4>Upload</h4>
+            </div>
+            <div class="card-body">
+              <span><?=$folderupload.' Mb'?></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card card-statistic-1">
+          <div class="card-icon bg-warning">
+            <i class="fas fa-upload"></i>
+          </div>
+          <div class="card-wrap">
+            <div class="card-header">
+              <h4>Backup</h4>
+            </div>
+            <div class="card-body">
+              <span><?=$folderberkas.' Mb'?></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
             <h4>User</h4>
@@ -54,12 +89,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-3">
-    <?php print_r($this->session->userdata('sistem'))?>
-    <p>
-      hellow
-    </p>
   </div>
 </div>
 <script type="text/javascript">

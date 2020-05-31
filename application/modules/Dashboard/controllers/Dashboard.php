@@ -13,21 +13,36 @@ class Dashboard extends MY_Controller {
 		// $this->duwi->cekadmin();
 		$this->leveluser=1;
 	}
-	public function setting(){
+	public function setting($set=null){
 		$setting=[
 			'sistem'=>'Starnode',
 			'menu'=>'dashboard',
 			'submenu'=>false,
 			'url'=>base_url('Dashboard'),
 		];
+		if($set){
+			$setting['folderupload']=round($set['fileupload'],2);
+			$setting['folderberkas']=round($set['fileberkas'],2);
+		}
 		return $setting;
 	}
 	public function index()
 	{
-		$param ='hello model';
-		$dt=$this->duwi->libmodel($param);
+		$num=1000000;
+		$pathupload='./upload/';
+		$ukuran=$this->duwi->folderSize($pathupload);
+		$folderupload=$ukuran/$num;
+
+		$pathberkas='./filemanager/userfiles/';
+		$ukuran=$this->duwi->folderSize($pathberkas);
+		$folderberkas=$ukuran/$num;
+
+		$set=[
+			'fileupload'=>$folderupload,
+			'fileberkas'=>$folderberkas,
+		];
 		$data=[
-			'konten'=>$this->load->view('Konten',$this->setting(),TRUE),
+			'konten'=>$this->load->view('Konten',$this->setting($set),TRUE),
 			'setting'=>$this->setting(),
 			'menu'=>$this->duwi->menu_backend($this->leveluser),
 		];

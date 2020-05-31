@@ -24,6 +24,14 @@ class Duwi {
 			$this->session->set_flashdata('error',$param);
 		}
 	}
+  function folderSize ($dir)
+	{
+	    $size = 0;
+	    foreach (glob(rtrim($dir, '/').'/*', GLOB_NOSORT) as $each) {
+	        $size += is_file($each) ? filesize($each) : $this->folderSize($each);
+	    }
+			return $size;
+	}  
 	public function ujicobalib($param){
 		echo "<pre>";
 		print_r($param);
