@@ -26,7 +26,7 @@
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
               <img src="<?=base_url()?>assets/img/arraymotion.png" alt="logo" width="100" class="shadow-light rounded-circle">
-              <h5 class="mt-3"><?=$setting['getsistem']->setting_namasistem?></h5>
+              <h5 class="mt-3"><?=$setting['getsistem']->setting_tagline?></h5>
             </div>
             <?php if($msg=$this->session->flashdata('error')):?>
               <div class="alert alert-danger alert-has-icon">

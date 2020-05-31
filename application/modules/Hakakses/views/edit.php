@@ -24,11 +24,6 @@
         </div>
         <div class="form-group">
           <label>Akses Level</label>
-            <input required type="text" class="form-control" name="menu_akses_level" value="<?=$data->menu_akses_level?>">
-            <?=validationmsg('required')?>
-        </div>
-        <div class="form-group">
-          <label>Akses Level</label>
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="" aria-label="" name="menu_akses_level" value="<?=$data->menu_akses_level?>">
             <div class="input-group-append">
