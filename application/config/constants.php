@@ -83,4 +83,6 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+define('DOKUMENTASI', 'Untuk dokumentasi & pengebangan sistem yang lengkap hubungi <strong>haryanto.duwi@gmail.com</strong> <span class="fas fa-fire text-danger"></span>');
 define('FOOTPRINT', 'Copyright &copy; '.date('Y').' <div class="bullet"></div> Make with <span class="fa fa-heart text-danger"></span> by haryanto.duwi');
