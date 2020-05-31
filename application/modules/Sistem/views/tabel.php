@@ -13,6 +13,11 @@
 					<?=validationmsg('required')?>
 				</div>
 				<div class="form-group">
+					<label>Tagline</label>
+					<input required type="text" class="form-control" value="<?=$data->setting_tagline?>" name="setting_tagline">
+					<?=validationmsg('required')?>
+				</div>
+				<div class="form-group">
 					<label>Programer</label>
 					<input type="text" class="form-control" value="<?=$data->setting_namapemilik?>" name="setting_namapemilik">
 					<?=validationmsg('required')?>

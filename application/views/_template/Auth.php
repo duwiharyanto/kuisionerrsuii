@@ -26,6 +26,7 @@
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand">
               <img src="<?=base_url()?>assets/img/arraymotion.png" alt="logo" width="100" class="shadow-light rounded-circle">
+              <h5 class="mt-3"><?=$setting['getsistem']->setting_namasistem?></h5>
             </div>
             <?php if($msg=$this->session->flashdata('error')):?>
               <div class="alert alert-danger alert-has-icon">
@@ -37,8 +38,6 @@
               </div>
             <?php endif;?>
             <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-
               <div class="card-body">
                 <form method="POST" action="<?=$setting['url'].'/prosesauth'?>" class="needs-validation" novalidate="">
                   <div class="form-group">
@@ -80,7 +79,7 @@
               </div>
             </div>
             <div class="mt-5 text-muted text-center">
-              Don't have an account? <a href="<?=base_url()?>dist/auth_register">Create One</a>
+              Don't have an account? <a href="javascript:void(0)">Create One</a>
             </div>
             <div class="simple-footer">
               <?=FOOTPRINT?>

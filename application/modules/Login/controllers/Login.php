@@ -37,6 +37,7 @@ class Login extends MY_Controller {
 			'sistem'=>'Starnode',
 			'menu'=>'dashboard',
 			'url'=>base_url('Login'),
+			'getsistem'=>$this->duwi->getsistem(),
 		];
 		return $setting;
 	}
@@ -45,6 +46,7 @@ class Login extends MY_Controller {
 		$this->duwi->ceklogin();
 		$data=[
 			'setting'=>$this->setting(),
+
 		];
 		login($data);
 	}

@@ -53,6 +53,7 @@ class Sistem extends MY_Controller {
 				'setting_alamat'=>$this->input->post('setting_alamat'),
 				'setting_email'=>$this->input->post('setting_email'),
 				'setting_notlp'=>$this->input->post('setting_notlp'),
+				'setting_tagline'=>$this->input->post('setting_tagline'),
 			];
 			//UPLOAD FILE
 			$file='setting_logo';
