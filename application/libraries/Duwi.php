@@ -10,7 +10,7 @@ class Duwi {
     public function libmodel($data){
     	return $this->_LOAD->Mdb->testmodel($data);
     }
-    public function atributsistem(){
+    public function getsistem(){
     	$query=[
     		'tabel'=>'setting',
     		'limit'=>1,
@@ -47,7 +47,7 @@ class Duwi {
 		}
 		if(!$aksesmenu){
 			if($this->_LOAD->session->userdata('user_login')){
-				redirect(site_url('Template/notfound'));
+				redirect(site_url('Notfound'));
 			}else{
 				$this->_LOAD->session->set_flashdata('error','Akses ditolak');
 				redirect(site_url('Login'));

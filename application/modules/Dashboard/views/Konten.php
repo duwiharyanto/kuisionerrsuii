@@ -15,7 +15,7 @@
               <span id="jumlahuser"></span>
             </div>
           </div>
-        </div>        
+        </div>
       </div>
       <div class="col-sm-6">
 
@@ -31,8 +31,8 @@
               <span id="log"></span>
             </div>
           </div>
-        </div>        
-      </div>      
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
@@ -51,12 +51,15 @@
           <div class="card-body">
             <canvas id="chartuser"></canvas>
           </div>
-        </div>         
+        </div>
       </div>
-    </div>       
+    </div>
   </div>
   <div class="col-sm-3">
-        
+    <?php print_r($this->session->userdata('sistem'))?>
+    <p>
+      hellow
+    </p>
   </div>
 </div>
 <script type="text/javascript">
@@ -162,7 +165,7 @@
           },
         }
       });
-      document.getElementById("jumlahuser").innerHTML=jumlahuser;  
-      document.getElementById("log").innerHTML=jumlahlog;                                       
-  });    
+      document.getElementById("jumlahuser").innerHTML=jumlahuser;
+      document.getElementById("log").innerHTML=jumlahlog;
+  });
 </script>

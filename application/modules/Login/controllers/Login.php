@@ -96,6 +96,14 @@ class Login extends MY_Controller {
 						//CEK KETERSEDIAAN HALAMAN DASHBOARD USER
 						if($dt_session->user_dashboard){
 							$this->session->set_userdata($set_session);
+							//GET ATTR SISTEM
+							$getsistem=$this->duwi->getsistem();
+							$sistem=[
+								'sistem'=>$getsistem->setting_namasistem,
+								'emailsistem'=>$getsistem->setting_email,
+								'alamatsistem'=>$getsistem->setting_alamat,
+							];
+							$this->session->set_userdata($sistem);
 							$this->session->set_flashdata('success','Selamat datang '.ucwords($dt_session->user_nama));
 							redirect(site_url($dt_session->user_dashboard));
 						}else{
