@@ -46,7 +46,6 @@ class Login extends MY_Controller {
 		$this->duwi->ceklogin();
 		$data=[
 			'setting'=>$this->setting(),
-
 		];
 		login($data);
 	}
@@ -81,6 +80,7 @@ class Login extends MY_Controller {
 						'user_id'=>$dt_session->user_id,
 						'user_foto'=>$dt_session->user_foto ? $dt_session->user_foto:'default.png' ,
 						'user_login'=>true,
+						'user_dashboard'=>$dt_session->user_dashboard,
 					];
 					if($dt_session->user_status!=1){
 						$this->session->set_flashdata('error','User Anda Non Aktif, kontak Adminstrator');

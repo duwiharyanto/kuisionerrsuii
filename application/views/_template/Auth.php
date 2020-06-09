@@ -74,6 +74,7 @@
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                       Login
                     </button>
+                    <a href="<?=site_url()?>" class="btn btn-danger btn-lg btn-block">Isi Kuisioner</a>
                   </div>
                 </form>
               </div>

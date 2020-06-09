@@ -49,6 +49,7 @@
     background-color:#6372E6
   }
 </style>
+<?php date_default_timezone_set('Asia/Jakarta')?>
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
@@ -139,7 +140,6 @@
                   <div class="breadcrumb-item"><?=ucwords($this->uri->segment(2))?></div>
                 <?php endif;?>
               <?php endif;?>
-
             </div>
           </div>
           <div class="section-body">

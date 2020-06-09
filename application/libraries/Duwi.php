@@ -71,7 +71,7 @@ class Duwi {
 	}
 	public function ceklogin(){
 		if($this->_LOAD->session->userdata('user_login')==true){
-			redirect(site_url('dashboard/dashboard'));
+			redirect(site_url($this->_LOAD->session->userdata('user_dashboard')));
 		}
 	}
 	public function nomorurut($param){

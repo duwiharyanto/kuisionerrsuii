@@ -49,7 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Login';
+
+$route['home'] = 'Ui/kuisioner';
+$route['default_controller'] = 'Ui/kuisioner';
 $route['Notfound'] = 'Template/notfound';
 $route['404_override'] = 'Template/notfound';
 $route['translate_uri_dashes'] = FALSE;

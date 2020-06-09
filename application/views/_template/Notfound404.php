@@ -28,7 +28,7 @@
             </div>
             <div class="page-search">
               <div class="mt-3">
-                <a href="<?=site_url()?>">Kembali</a>
+                <a href="<?=$url?>">Kembali</a>
               </div>
             </div>
           </div>
