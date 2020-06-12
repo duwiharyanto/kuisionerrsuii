@@ -10,8 +10,8 @@
 		}
 		if(isset($aksi['detail'])&&$aksi['detail']){
 			echo '
-			<a  href="'.base_url($aksi['url']."/detail/".md5($id)).'" class="btn btn-icon btn-primary btn-md" data-toggle="tooltip" title="Detail">
-				<i class="fa fa-folder-open"></i>
+			<a  href="javascript:void(0)" url="'.base_url($aksi['url']."/detail/").'" id="'.md5($id).'" class="detail btn btn-icon btn-primary btn-md" data-toggle="tooltip" title="Detail">
+				<i class="fas fa-eye"></i>
 			</a>
 			';
 		}

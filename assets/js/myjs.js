@@ -88,6 +88,21 @@ aksi = function(){
       }
     })
   });
+$('.detail').on('click',function(){
+    var id=$(this).attr('id')
+    var url=$(this).attr('url')
+    $.ajax({
+      type:'POST',
+      url:url,
+      data:{id:id},
+      success:function(data){
+        $("#loadtabel").html(data)
+        custom()
+        validasi()
+      }
+    })
+    //alert('detail');
+  });  
 }
 validasisetting = function(){
   $(".needs-validation").submit(function(e) {
