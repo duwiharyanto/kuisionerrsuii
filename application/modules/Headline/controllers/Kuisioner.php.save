@@ -14,7 +14,6 @@ class Kuisioner extends MY_Controller {
 	}
 	private $tabel='kuisioner';
 	private $id='kuisioner_id';
-	private $jumlahsoal=16;
 	//private $path='upload/sistem/';
 
 	public function setting(){
@@ -27,7 +26,7 @@ class Kuisioner extends MY_Controller {
 			'aksi'=>[
 				'tambah'=>true,
 				'edit'=>false,
-				'detail'=>true,
+				'detail'=>false,
 				'hapus'=>true,
 				'cetak'=>false,
 				'url'=>'Kuisioner',
@@ -51,12 +50,9 @@ class Kuisioner extends MY_Controller {
 		// 	'join'=>[['tabel'=>'level b','ON'=>'a.user_level=b.level_id','jenis'=>'INNER']]
 		// ];
 		$q=[
-			'select'=>'a.*,b.kategori_kategori,b.kategori_periode,c.departemen_nama',
+			'select'=>'a.*,b.kategori_kategori,b.kategori_periode',
 			'tabel'=>'kuisioner a',
-			'join'=>[['tabel'=>'kategori b','ON'=>'a.kuisioner_kategoriid=b.kategori_id','jenis'=>'INNER'],
-				['tabel'=>'departemen c','ON'=>'a.kuisioner_departemenid=c.departemen_id','jenis'=>'INNER'],
-				],
-
+			'join'=>[['tabel'=>'kategori b','ON'=>'a.kuisioner_kategoriid=b.kategori_id','jenis'=>'INNER']]
 		];
 		$d=$this->Mdb->join($q)->result();
 		$kuisioner=[];
@@ -130,8 +126,9 @@ class Kuisioner extends MY_Controller {
 			$dt=toastsimpan($r,'user');
 			return $this->output->set_output(json_encode($dt));
 		}
-		$departemen=[
-			'tabel'=>'departemen',
+		$q_departemen=[
+			'tabel'=>'departemen
+			'order'=>['kolom'=>'departemen_nama','orderby'=>
 		];
 		$kategori=[
 			'tabel'=>'kategori',
@@ -143,7 +140,6 @@ class Kuisioner extends MY_Controller {
 		$data=[
 			'data'=>$this->Mdb->read($q)->result(),
 			'kategori'=>$this->Mdb->read($kategori)->row(),
-			'departemen'=>$this->Mdb->read($departemen)->result(),
 			'setting'=>$this->setting(),
 			'headline'=>'tambah data',
 		];
@@ -204,19 +200,6 @@ class Kuisioner extends MY_Controller {
 		}
 		$this->output->set_output(json_encode($data));
 	}
-	public function hapusall(){
-		$id=$this->input->post('id');
-		$q=[
-			'tabel'=>$this->tabel,
-		];
-		$result=$this->Mdb->deleteall($q);
-		if($result){
-			$data=toasthapus('success','User');
-		}else{
-			$data=toasthapus('error','User');
-		}
-		$this->output->set_output(json_encode($data));
-	}	
 	public function cetak(){
 		$param=[
 			'getdata'=>true,
@@ -225,85 +208,28 @@ class Kuisioner extends MY_Controller {
 		print_r($data);
 	}
 	public function detail(){
-		//$id=25;
-		$id=$this->input->post('id');
+		$id=25;
 		$marking=[];
 		$q_responden=[
 			'tabel'=>'kuisioner',
-			'where'=>[['md5(kuisioner_id)'=>$id]],
+			'where'=>[['kuisioner_id'=>$id]],
 		];
 		$responden=$this->Mdb->read($q_responden)->result();
-		if(count($responden)==0) redirect(site_url('notfound')); //ERROR
-		// $data=(object)[];
-		$pertanyaan=[];
-		$q_question=[
-			'tabel'=>'pertanyaan',
-		];
-		foreach ($responden as $index => $val) {
-			for($i=1;$i<=$this->jumlahsoal;$i++){
-				$kolom='kuisioner_j'.$i;
-				$jawaban[$i]=$val->$kolom; //ARAY JAWABAN
+		$data=[];
+		foreach ($responden as $index => $row) {
+			$data[$index]=$row;
+			$q_question=[
+				'tabel'=>'pertanyaan',
+			];
+			$question=$this->Mdb->read($q_question)->result();
+			foreach($question as $indexquestion => $valquestion){
+				$pertanyaan=[
+					'pertanyaan'=>$valquestion->pertanyaan_pertanyaan,
+				];	
 			}
+						
 		}
-		//POLLING PERTANYAAN
-		$r_pertanyaan=$this->Mdb->read($q_question)->result();	
-		$i=1;	
-		foreach($r_pertanyaan AS $index => $row){
-			$pertanyaan[$index]=$row;
-			$pertanyaan[$index]->jawaban=$jawaban[$i];
-			$i++;
-		}	
-		$data=[
-			'responden'=>$responden,
-			'data'=>$pertanyaan,
-			'setting'=>$this->setting(),
-		];
-		$this->load->view('detail',$data);
-	}
-	public function cetakdetail(){
-		$id=$this->input->post('id');
-		$marking=[];
-		$q_responden=[
-			'tabel'=>'kuisioner',
-			'where'=>[['md5(kuisioner_id)'=>$id]],
-		];
-		$responden=$this->Mdb->read($q_responden)->result();
-		if(count($responden)==0) redirect(site_url('notfound')); //ERROR
-		// $data=(object)[];
-		$pertanyaan=[];
-		$q_question=[
-			'tabel'=>'pertanyaan',
-		];
-		foreach ($responden as $index => $val) {
-			for($i=1;$i<=$this->jumlahsoal;$i++){
-				$kolom='kuisioner_j'.$i;
-				$jawaban[$i]=$val->$kolom; //ARAY JAWABAN
-			}
-		}
-		//POLLING PERTANYAAN
-		$r_pertanyaan=$this->Mdb->read($q_question)->result();	
-		$i=1;	
-		foreach($r_pertanyaan AS $index => $row){
-			$pertanyaan[$index]=$row;
-			$pertanyaan[$index]->jawaban=$jawaban[$i];
-			$i++;
-		}		
-		$data=array(
-			'setting'=>$this->setting(),
-			'responden'=>$responden,
-			'data'=>$pertanyaan,
-			'deskripsi'=>'dicetak dari sistem tanggal '.date('d-m-Y'),
-		);
-		$print=[
-			'konten'=>$this->load->view('cetakdetail',$data,TRUE), //VIEW HTML
-		];
-		$view=exportpdf($print);
-		$cetak=[
-			'judul'=>ucwords($data['setting']['headline']).'/'.date('d-m-Y'),
-			'view'=>$view,
-			'kertas'=>'A4',
-		];
-		$this->duwi->prosescetak($cetak);		
+		print_r($data);
 	}
 	public function faker(){
 		$faker=Faker\factory::create('id_ID');

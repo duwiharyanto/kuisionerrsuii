@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Kuisioner extends MY_Controller {
+class Headline extends MY_Controller {
 
 	/**
 	 * Email haryanto.duwi@gmail.com
@@ -12,25 +12,25 @@ class Kuisioner extends MY_Controller {
 		$this->user_level=$this->session->userdata('user_level');
 		// $this->duwi->cekadmin();
 	}
-	private $tabel='kuisioner';
-	private $id='kuisioner_id';
+	private $tabel='kategori';
+	private $id='kategori_id';
 	private $jumlahsoal=16;
 	//private $path='upload/sistem/';
 
 	public function setting(){
 		$setting=[
 			'sistem'=>'Starnodes',
-			'menu'=>'kuisioner',
+			'menu'=>'headline',
 			'submenu'=>false,
-			'headline'=>'responder kuisioner',
-			'url'=>'Kuisioner',  //CASE SENSITIVE
+			'headline'=>'headline kuisioner',
+			'url'=>'Headline',  //CASE SENSITIVE
 			'aksi'=>[
-				'tambah'=>true,
-				'edit'=>false,
-				'detail'=>true,
+				'tambah'=>false,
+				'edit'=>true,
+				'detail'=>false,
 				'hapus'=>true,
 				'cetak'=>false,
-				'url'=>'Kuisioner',
+				'url'=>'Headline',
 			],
 		];
 		return $setting;
@@ -51,56 +51,11 @@ class Kuisioner extends MY_Controller {
 		// 	'join'=>[['tabel'=>'level b','ON'=>'a.user_level=b.level_id','jenis'=>'INNER']]
 		// ];
 		$q=[
-			'select'=>'a.*,b.kategori_kategori,b.kategori_periode,c.departemen_nama',
-			'tabel'=>'kuisioner a',
-			'join'=>[['tabel'=>'kategori b','ON'=>'a.kuisioner_kategoriid=b.kategori_id','jenis'=>'INNER'],
-				['tabel'=>'departemen c','ON'=>'a.kuisioner_departemenid=c.departemen_id','jenis'=>'INNER'],
-				],
+			'tabel'=>$this->tabel,
 
-		];
-		$d=$this->Mdb->join($q)->result();
-		$kuisioner=[];
-		$nilai=0;
-		foreach ($d as $index => $row) {
-			$kuisioner[$index]=$row;
-			$nilai	+=$row->kuisioner_j1;		
-			$nilai	+=$row->kuisioner_j2;
-			$nilai	+=$row->kuisioner_j3;
-			$nilai	+=$row->kuisioner_j4;
-			$nilai	+=$row->kuisioner_j5;
-			$nilai	+=$row->kuisioner_j6;
-			$nilai	+=$row->kuisioner_j7;
-			$nilai	+=$row->kuisioner_j8;
-			$nilai	+=$row->kuisioner_j9;
-			$nilai	+=$row->kuisioner_j10;
-			$nilai	+=$row->kuisioner_j11;
-			$nilai	+=$row->kuisioner_j12;
-			$nilai	+=$row->kuisioner_j13;
-			$nilai	+=$row->kuisioner_j14;
-			$nilai	+=$row->kuisioner_j15;
-			$nilai	+=$row->kuisioner_j16;
-			$nilai	+=$row->kuisioner_j17;
-			$kuisioner[$index]->nilai=$nilai;
-			
-			if($nilai==0 || $nilai <= 6){
-				$status="Risiko Rendah Paparan Covid-19";
-				$warna='bg-success';
-			}elseif($nilai==7 || $nilai <= 13){
-				$status="Risiko Sedang Paparan Covid-19";
-				$warna='bg-warning';
-			}elseif($nilai>=14){
-				$status="Risiko Tinggi Paparan Covid-19";
-				$warna='bg-danger';
-			}else{
-				$status="unkown";
-				$warna='bg-secondary';
-			}
-			$kuisioner[$index]->status=$status;
-			$kuisioner[$index]->warna=$warna;
-			$nilai=0; //RESET
-		}		
+		];	
 		$data=[
-			'data'=>$kuisioner,
+			'data'=>$this->Mdb->read($q)->result(),
 			'setting'=>$this->setting(),
 		];
 		if($param['getdata']){
@@ -110,57 +65,13 @@ class Kuisioner extends MY_Controller {
 		}
 		
 	}
-	public function add(){
-		if($this->input->post('kuisioner_nama')){
-			$data=[
-				'kuisioner_nama'=>$this->input->post('kuisioner_nama'),
-				'kuisioner_unitkerja'=>$this->input->post('kuisioner_unitkerja'),
-				'kuisioner_departemen'=>$this->input->post('kuisioner_departemen'),
-				'kuisioner_alamatdomisili'=>$this->input->post('kuisioner_alamatdomisili'),
-				'kuisioner_kategoriid'=>$this->input->post('kuisioner_kategoriid'),
-			];
-			for ($i=1; $i < 17; $i++) { 
-				$data['kuisioner_j'.$i]=$this->input->post('j'.$i);
-			}
-			$q=[
-				'tabel'=>$this->tabel,
-				'data'=>$this->security->xss_clean($data),
-			];
-			$r=$this->Mdb->insert($q);
-			$dt=toastsimpan($r,'user');
-			return $this->output->set_output(json_encode($dt));
-		}
-		$departemen=[
-			'tabel'=>'departemen',
-		];
-		$kategori=[
-			'tabel'=>'kategori',
-			'where'=>[['kategori_status'=>1]],
-		];
-		$q=[
-			'tabel'=>'pertanyaan',
-		];
-		$data=[
-			'data'=>$this->Mdb->read($q)->result(),
-			'kategori'=>$this->Mdb->read($kategori)->row(),
-			'departemen'=>$this->Mdb->read($departemen)->result(),
-			'setting'=>$this->setting(),
-			'headline'=>'tambah data',
-		];
-		$this->load->view('add',$data);
-	}
 	public function edit(){
 		$id=$this->input->post('id');
-		if($this->input->post('user_nama')){
+		if($this->input->post('kategori_kategori')){
 			$data=[
-				'user_nama'=>$this->input->post('user_nama'),
-				'user_username'=>$this->input->post('user_username'),
-				'user_email'=>$this->input->post('user_email'),
-				'user_level'=>$this->input->post('user_level'),
-				'user_dashboard'=>$this->input->post('user_dashboard'),
-				'user_status'=>$this->input->post('user_status')
+				'kategori_kategori'=>$this->input->post('kategori_kategori'),
+				'kategori_periode'=>$this->input->post('kategori_periode'),
 			];
-			if($this->input->post('user_password')) $data['user_password']=md5($this->input->post('user_password'));
 			$q=[
 				'tabel'=>$this->tabel,
 				'data'=>$this->security->xss_clean($data),
@@ -178,14 +89,10 @@ class Kuisioner extends MY_Controller {
 			'tabel'=>$this->tabel,
 			'where'=>[[$this->id=>$id]],
 		];
-		$level=[
-			'tabel'=>'level',
-		];
 		$result=$this->Mdb->read($q)->row();
 		$data=[
 			'setting'=>$this->setting(),
 			'headline'=>'edit data',
-			'level'=>$this->Mdb->read($level)->result(),
 			'data'=>$result,
 		];
 		$this->load->view('edit',$data);

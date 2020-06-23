@@ -14,8 +14,7 @@
             <div class="dropdown">
               <a href="#" data-toggle="dropdown" class="btn btn-outline-primary dropdown-toggle">Options</a>
               <div class="dropdown-menu">
-                <a href="javascript:void(0)" id="reloadbtn" onclick="reload(this)" url="<?= base_url($url.'/tabel')?>" class="dropdown-item has-icon text-primary"><i class="fa fa-sync-alt"></i> Reload</a>
-                <a href="javascript:void(0)"  onclick="hapusall(this)" url="<?= base_url($url.'/hapusall')?>" class="dropdown-item has-icon text-primary"><i class="far fa-trash-alt"></i> Hapus Semua</a>                
+                <a href="javascript:void(0)" id="reloadbtn" onclick="reload(this)" url="<?= base_url($url.'/tabel')?>" class="dropdown-item has-icon text-primary"><i class="fa fa-sync-alt"></i> Reload</a>               
                 <a href="javascript:void(0)" class="dropdown-item has-icon text-primary"><i class="far fa-trash-alt"></i> Trash</a>
               </div>
             </div>
@@ -40,33 +39,5 @@
         //validasi()
       });
     }, 200);
-    hapusall=function(btn){
-      var url=$(btn).attr('url')
-      swal({
-        title: 'Anda Yakin ?',
-        text: 'Data akan dihapus secara permanen',
-        icon: 'warning',
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          swal('Data berhasil dihapus', {
-            icon: 'success',
-          });
-          $.ajax({
-            type:'POST',
-            dataType:'json',
-            url:url,
-            success:function(data){
-              reload()
-              toaster(data)
-            }
-          })
-        } else {
-          swal('Data tidak jadi dihapus');
-        }
-      });      
-    }
   })
 </script>

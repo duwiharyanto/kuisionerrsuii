@@ -72,6 +72,14 @@ class Modeldb extends CI_Model
 			return $error['message'];
 		}
 	}
+	public function deleteall($data){
+		if($this->db->empty_table($data['tabel'])){
+			return true;
+		}else{
+			$error=$this->db->error();
+			return $error['message'];
+		}
+	}	
 	public function update($data){
 		if(isset($data['where'])){
 			$this->db->where($data['where']);
