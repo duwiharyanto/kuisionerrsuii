@@ -1,4 +1,65 @@
 <div class="row">
+	<div class="col-sm-3">
+		<div class="card card-statistic-1">
+			<div class="card-icon bg-primary">
+				<i class="far fa-file"></i>
+			</div>
+			<div class="card-wrap">
+				<div class="card-header">
+					<h4>Total Responden</h4>
+				</div>
+				<div class="card-body">
+					<span id="jumlahuser"><?=count($data)?></span>
+				</div>
+			</div>
+		</div>	 
+	</div>
+	<div class="col-sm-3">
+		<div class="card card-statistic-1">
+			<div class="card-icon bg-success">
+				<i class="fas fa-grin-beam"></i>
+			</div>
+			<div class="card-wrap">
+				<div class="card-header">
+					<h4>Resiko Rendah</h4>
+				</div>
+				<div class="card-body">
+					<span id=""><?=$kluster['rendah']?></span>
+				</div>
+			</div>
+		</div>	 
+	</div>
+	<div class="col-sm-3">
+		<div class="card card-statistic-1">
+			<div class="card-icon bg-warning">
+				<i class="fas fa-grin-tears"></i>
+			</div>
+			<div class="card-wrap">
+				<div class="card-header">
+					<h4>Resiko Sedang</h4>
+				</div>
+				<div class="card-body">
+					<span id=""><?=$kluster['sedang']?></span>
+				</div>
+			</div>
+		</div>	 
+	</div>	<div class="col-sm-3">
+		<div class="card card-statistic-1">
+			<div class="card-icon bg-danger">
+				<i class="fas fa-dizzy"></i>
+			</div>
+			<div class="card-wrap">
+				<div class="card-header">
+					<h4>Resiko Tinggi</h4>
+				</div>
+				<div class="card-body">
+					<span id=""><?=$kluster['tinggi']?></span>
+				</div>
+			</div>
+		</div>	 
+	</div>	
+</div>
+<div class="row">
 	<div class="col-sm-12">
 		<div class="table-responsive">
 			<table class="table table-striped datatables" width="100%">

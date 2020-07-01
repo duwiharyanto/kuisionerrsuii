@@ -14,10 +14,23 @@
         <div class="tab-content " id="myTab3Content">
           <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
             <div class="row">
-              <span id="urldashboard" url="<?=$url.'/getdata'?>"></span>
+              <span id="urldashboards" url="<?=$url.'/getdata'?>"></span>
               <div class="col-sm-6">
                 <div class="row">
                   <div class="col-sm-12">
+                    <div class="card card-statistic-1">
+                      <div class="card-icon bg-warning">
+                        <i class="fas fa-archive" ></i>
+                      </div>
+                      <div class="card-wrap">
+                        <div class="card-header">
+                          <h4>Total Responder</h4>
+                        </div>
+                        <div class="card-body">
+                          <span id="jumlahresponder"></span>
+                        </div>
+                      </div>
+                    </div>                    
                     <div class="card">
                       <div class="card-header">
                         <h4>Responder</h4>
@@ -285,8 +298,9 @@
           },
         }
       });
-      
+      var jumresponder=data.jumresponder;
       document.getElementById("jumlahuser").innerHTML=jumlahuser;
       document.getElementById("log").innerHTML=jumlahlog;
+      document.getElementById("jumlahresponder").innerHTML=jumresponder;
   });
 </script>

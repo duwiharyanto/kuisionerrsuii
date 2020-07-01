@@ -50,6 +50,10 @@ class Kuisioner extends MY_Controller {
 		// 	'tabel'=>'user a',
 		// 	'join'=>[['tabel'=>'level b','ON'=>'a.user_level=b.level_id','jenis'=>'INNER']]
 		// ];
+		//SET NILAI HASIL
+		$rendah=0;
+		$sedang=0;
+		$tinggi=0;
 		$q=[
 			'select'=>'a.*,b.kategori_kategori,b.kategori_periode,c.departemen_nama',
 			'tabel'=>'kuisioner a',
@@ -84,13 +88,16 @@ class Kuisioner extends MY_Controller {
 			
 			if($nilai==0 || $nilai <= 6){
 				$status="Risiko Rendah Paparan Covid-19";
+				$rendah++;
 				$warna='bg-success';
 			}elseif($nilai==7 || $nilai <= 13){
 				$status="Risiko Sedang Paparan Covid-19";
 				$warna='bg-warning';
+				$sedang++;
 			}elseif($nilai>=14){
 				$status="Risiko Tinggi Paparan Covid-19";
 				$warna='bg-danger';
+				$tinggi++;
 			}else{
 				$status="unkown";
 				$warna='bg-secondary';
@@ -99,9 +106,15 @@ class Kuisioner extends MY_Controller {
 			$kuisioner[$index]->warna=$warna;
 			$nilai=0; //RESET
 		}		
+		$kluster=[
+			'rendah'=>$rendah,
+			'sedang'=>$sedang, 
+			'tinggi'=>$tinggi,
+		];
 		$data=[
 			'data'=>$kuisioner,
 			'setting'=>$this->setting(),
+			'kluster'=>$kluster,
 		];
 		if($param['getdata']){
 			return $data['data'];

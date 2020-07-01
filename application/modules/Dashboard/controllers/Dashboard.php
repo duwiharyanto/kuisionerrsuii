@@ -60,12 +60,16 @@ class Dashboard extends MY_Controller {
 		$log=[
 			'tabel'=>'log',
 		];
+		$responder=[
+			'tabel'=>'kuisioner',
+		];
 		$data=[
 			$d_aksessistem,
 			$d_user,
 			count($this->Mdb->read($usr)->result_array()),
 			'log'=>count($this->Mdb->read($log)->result_array()),
 			'responder'=>$this->Mdb->hardcode($q_responder)->result_array(),
+			'jumresponder'=>count($this->Mdb->read($responder)->result()),
 		];
 		$this->output->set_output(json_encode($data));
 	}
