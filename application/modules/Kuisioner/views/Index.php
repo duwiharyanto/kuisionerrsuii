@@ -3,7 +3,11 @@
     <div class="col-12">
       <div class="card card-danger">
         <div class="card-header">
-          <h4 id="headline"><?=ucwords($headline)?> <span class="badge badge-danger <?=!$update ? 'd-none':''?>">update</span></h4>
+          <h4 id="headline"><?=ucwords($headline)?> 
+            <?php if($this->session->userdata('user_level')==1):?>
+            <span class="badge badge-danger <?=!$update ? 'd-none':''?>">update</span>
+            <?php endif;?>
+          </h4>
           <div class="card-header-action">
             <?php if($aksi['tambah']):?>
               <button id="addbtn" class="btn  btn-outline-primary" onclick="add()" url="<?= base_url($url.'/add')?>"><i class="fas fa-plus"></i> Tambah</button>

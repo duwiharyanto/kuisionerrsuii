@@ -1,3 +1,4 @@
+<?php if($this->session->userdata('user_level')==1):?>
 <div class="row">
 	<div class="col-sm-3">
 		<div class="card card-statistic-1">
@@ -59,6 +60,7 @@
 		</div>	 
 	</div>	
 </div>
+<?php endif;?>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="table-responsive">
