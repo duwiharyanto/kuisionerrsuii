@@ -15,6 +15,7 @@ class Kuisioner extends MY_Controller {
 	private $tabel='kuisioner';
 	private $id='kuisioner_id';
 	private $jumlahsoal=16;
+	private $thereisupdate=1;
 	//private $path='upload/sistem/';
 
 	public function setting(){
@@ -32,6 +33,7 @@ class Kuisioner extends MY_Controller {
 				'cetak'=>false,
 				'url'=>'Kuisioner',
 			],
+			'update'=>$this->thereisupdate,
 		];
 		return $setting;
 	}
